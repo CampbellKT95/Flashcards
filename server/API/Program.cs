@@ -1,4 +1,5 @@
 ﻿using Flashcards.Data;
+using Flashcards.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IRepository>(sp => new Repository(sp.GetRequiredService<ILogger<Repository>>()));
+Flashcards_Environment env = new Flashcards_Environment();
+string connectionString = env.AZURE_CONNECTION_STRING;
+
+builder.Services.AddSingleton<IRepository>(sp => new Repository(connectionString, sp.GetRequiredService<ILogger<Repository>>()));
 
 var app = builder.Build();
 

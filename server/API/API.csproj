@@ -9,13 +9,16 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Remove="Data\" />
-    <PackageReference Remove="Microsoft.Data.SqlClient" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Microsoft.Data.SqlClient" />
   </ItemGroup>
 </Project>

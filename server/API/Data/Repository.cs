@@ -6,12 +6,12 @@ namespace Flashcards.Data
 {
     public class Repository : IRepository
     {
-        private readonly string? connectionString;
+        private readonly string connectionString;
         private readonly ILogger<Repository> _logger;
 
-        public Repository(ILogger<Repository> logger)
+        public Repository(string connectionString, ILogger<Repository> logger)
         {
-            connectionString = Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
+            this.connectionString = connectionString;
             _logger = logger;
         }
 
