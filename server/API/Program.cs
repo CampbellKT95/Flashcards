@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 Flashcards_Environment env = new Flashcards_Environment();
-string connectionString = env.AZURE_CONNECTION_STRING;
+string connectionString = env.CONNECTION_STRING;
 
 builder.Services.AddSingleton<IRepository>(sp => new Repository(connectionString, sp.GetRequiredService<ILogger<Repository>>()));
 

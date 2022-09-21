@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.Data.SqlClient;
 using Flashcards.Models;
+using Npgsql;
 
 namespace Flashcards.Data
 {
@@ -19,13 +19,13 @@ namespace Flashcards.Data
         {
             List<Flashcard> allCards = new List<Flashcard>();
 
-            using SqlConnection connection = new SqlConnection(connectionString);
+            using NpgsqlConnection connection = new NpgsqlConnection(connectionString);
             await connection.OpenAsync();
 
-            string cmdText = "SELECT * FROM cards";
-            using SqlCommand cmd = new SqlCommand(cmdText, connection);
+            string cmdText = "SELECT * FROM flashcards";
+            using NpgsqlCommand cmd = new NpgsqlCommand(cmdText, connection);
 
-            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             Flashcard card;
             while (reader.Read())
@@ -44,19 +44,18 @@ namespace Flashcards.Data
 
         public async Task InsertFlashcard(Flashcard newCard)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            using NpgsqlConnection connection = new NpgsqlConnection(connectionString);
             await connection.OpenAsync();
 
-            string cmdText = "INSERT INTO cards (Word, Furigana, Definition, Example, Difficulty, Last_Reviewed) VALUES (@Word, @Furigana, @Definition, @Example, @Difficulty, @Last_Reviewed)";
-            using SqlCommand cmd = new SqlCommand(cmdText, connection);
+            string cmdText = "INSERT INTO flashcards (Word, Furigana, Definition, Example, Difficulty, Last_Reviewed) VALUES (@Word, @Furigana, @Definition, @Example, @Difficulty, @Last_Reviewed)";
+            using NpgsqlCommand cmd = new NpgsqlCommand(cmdText, connection);
 
-            // giving default values for now
-            cmd.Parameters.AddWithValue("@Word", "魚");
-            cmd.Parameters.AddWithValue("@Furigana", "さかな");
-            cmd.Parameters.AddWithValue("@Definition", "Fish");
-            cmd.Parameters.AddWithValue("@Example", "これは魚ですか？");
-            cmd.Parameters.AddWithValue("@Difficulty", 1);
-            cmd.Parameters.AddWithValue("@Last_Reviewed", "09/20/2022");
+            cmd.Parameters.AddWithValue("@Word", newCard.Word);
+            cmd.Parameters.AddWithValue("@Furigana", newCard.Furigana);
+            cmd.Parameters.AddWithValue("@Definition", newCard.Definition);
+            cmd.Parameters.AddWithValue("@Example", newCard.Example);
+            cmd.Parameters.AddWithValue("@Difficulty", newCard.Difficulty);
+            cmd.Parameters.AddWithValue("@Last_Reviewed", newCard.Last_Reviewed);
 
             await cmd.ExecuteNonQueryAsync();
 

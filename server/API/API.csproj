@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Npgsql" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Microsoft.Data.SqlClient" />
+    <None Remove="Npgsql" />
   </ItemGroup>
 </Project>
