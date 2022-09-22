@@ -69,6 +69,31 @@ namespace Flashcards.API
 
             return response;
         }
+
+        [HttpDelete("/card/:word")]
+        public async Task<ActionResult> DeleteCard([FromRoute] string word)
+        {
+            ContentResult response = new ContentResult();
+
+            try
+            {
+                await _repo.DeleteFlashcard(word);
+                _logger.LogInformation("Card {word} successfully deleted", word);
+                response = new ContentResult()
+                {
+                    StatusCode = 200,
+                    ContentType = "application/json",
+                    Content = "Successfully deleted card"
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Deletion failed: {error}", ex.Message);
+                response.StatusCode = 500;
+            }
+
+            return response;
+        }
     }
 }
 

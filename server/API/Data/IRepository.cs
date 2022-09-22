@@ -7,6 +7,7 @@ namespace Flashcards.Data
     {
         public Task<List<Flashcard>> ReadAllFlashcards();
         public Task InsertFlashcard(Flashcard flashcard);
+        public Task DeleteFlashcard(string word);
     }
 }
 

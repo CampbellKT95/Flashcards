@@ -63,6 +63,23 @@ namespace Flashcards.Data
 
             _logger.LogInformation("Inserted new card");
         }
+
+        public async Task DeleteFlashcard(string word)
+        {
+            using NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            string cmdText = "DELETE FROM flashcards WHERE Word = @Word";
+            using NpgsqlCommand cmd = new NpgsqlCommand(cmdText, connection);
+
+            cmd.Parameters.AddWithValue("@Word", word);
+
+            await cmd.ExecuteNonQueryAsync();
+
+            await connection.CloseAsync();
+
+            _logger.LogInformation("Card deleted");
+        }
     }
 }
 
