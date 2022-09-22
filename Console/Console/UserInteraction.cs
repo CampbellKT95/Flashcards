@@ -48,7 +48,7 @@ namespace User.Interaction
                     System.Console.WriteLine("\n Type a word you would like to delete");
                     string wordToDelete = System.Console.ReadLine() ?? throw new NullReferenceException(nameof(wordToDelete));
 
-                    string deleteResult = await api.DeleteCard(wordToDelete);
+                    string deleteResult = await api.DeleteCard(wordToDelete.Trim());
 
                     System.Console.WriteLine($"Delete result: {deleteResult}");
                     break;

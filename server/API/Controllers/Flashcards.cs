@@ -70,8 +70,8 @@ namespace Flashcards.API
             return response;
         }
 
-        [HttpDelete("/card/:word")]
-        public async Task<ActionResult> DeleteCard([FromRoute] string word)
+        [HttpDelete("/card/{word}")]
+        public async Task<ActionResult> DeleteCard(string word)
         {
             ContentResult response = new ContentResult();
 
