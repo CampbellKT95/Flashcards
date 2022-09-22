@@ -14,6 +14,8 @@ namespace User.Api
         public async Task<List<Flashcard>> ViewCards()
         {
             List<Flashcard> allCards = new List<Flashcard>();
+
+            // currently failing at response
             var response = await client.GetAsync($"{urlBase}/card");
 
             string responseContent = await response.Content.ReadAsStringAsync();

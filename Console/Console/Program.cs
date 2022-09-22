@@ -9,7 +9,7 @@ namespace Console
         {
             UserInteraction user = new UserInteraction();
 
-            user.Handle_User_input();
+            user.BeginUserInteraction();
         }
     }
 }
