@@ -1,4 +1,5 @@
 ﻿using System;
+using User.Interaction;
 
 namespace Console
 {
@@ -6,7 +7,9 @@ namespace Console
     {
         static void Main()
         {
-            System.Console.WriteLine("Hello, World!");
+            UserInteraction user = new UserInteraction();
+
+            user.Handle_User_input();
         }
     }
 }
