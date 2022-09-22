@@ -1,5 +1,6 @@
-1. Build web scrapper to automate process of building example sentences
+1. Create console side of application
+    - Allow for automated example sentence creation with web scrapper
 
-2. Create console side of application
-
-3. Figure out how to export flashcard content to Anki
+2. Additional
+    - Enable cards to be exported to excel
+    - Enable cards to be transfered to Anki (likely will need to use bash)
