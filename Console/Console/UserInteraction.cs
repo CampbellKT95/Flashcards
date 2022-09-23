@@ -12,13 +12,11 @@ namespace User.Interaction
 
         private bool continuation = true;
 
-        public void BeginUserInteraction()
+        public async Task BeginUserInteraction()
         {
-            System.Console.WriteLine("What would you like to do today?");
-
             while (continuation)
             {
-                HandleUserInput();
+                await HandleUserInput();
             }
         }
 

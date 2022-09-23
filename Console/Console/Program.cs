@@ -5,11 +5,12 @@ namespace Console
 {
     public class Console
     {
-        static void Main()
+        static async Task Main()
         {
-            UserInteraction user = new UserInteraction();
+            System.Console.WriteLine("What would you like to do today?");
 
-            user.BeginUserInteraction();
+            UserInteraction user = new UserInteraction();
+            await user.BeginUserInteraction();
         }
     }
 }
