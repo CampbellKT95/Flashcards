@@ -7,7 +7,7 @@ namespace User.Tools
     {
         private readonly string jishoUrl = "https://jisho.org/search/";
 
-        public async Task ScrapSentence(string word)
+        public async Task<string[]> ScrapSentence(string word)
         {
             HttpClient client = new HttpClient();
 
@@ -28,7 +28,7 @@ namespace User.Tools
                 allSentenceStarts[i] = sentenceStart;
             }
 
-            // find the first three instances of english_sentence, which indicates the beginning of an en sentence (and thus the end of the coorsponding jp sentence)
+            // find the first three instances of english_sentence, which indicates the beginning of an EN sentence (and thus the end of the coorsponding jp sentence)
             int[] allSentenceEnds = new int[3];
             int lastEndPosition = 0;
             for (int i = 0; i < 3; i++)
@@ -49,9 +49,37 @@ namespace User.Tools
                 allSentences[i] = snippet;
             }
 
-            System.Console.WriteLine(String.Join(",", allSentences));
+            // all kanji are fixed in a <span class="unlinked">
+            string[] parsedSentences = new string[3];
+            for (int i = 0; i < 3; i++)
+            {
+                string sentence = "";
 
-            // all kanji are fixed in a <span class="unlinked">. Parse these out into an array
+                string[] dividedSentence = allSentences[i].Split(">");
+                // immediately following "unlinked", grab everything up until '<' in the following iteration
+                bool willBeKanji = false;
+                foreach(string s in dividedSentence)
+                {
+                    if (willBeKanji)
+                    {
+                        int openTagIndex = s.IndexOf("<");
+                        string kanji = s.Substring(0, openTagIndex);
+
+                        sentence += kanji;
+
+                        willBeKanji = false;
+                    }
+
+                    if (s.Contains("unlinked"))
+                    {
+                        willBeKanji = true;
+                    }
+                }
+
+                parsedSentences[i] = sentence;
+            }
+
+            return parsedSentences;
         }
     }
 }

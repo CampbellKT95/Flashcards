@@ -29,19 +29,14 @@ namespace User.Api
 
         public async Task<string> CreateNewCard(Flashcard newCard)
         {
-            //string serializedCard = JsonSerializer.Serialize(newCard);
-            //StringContent content = new StringContent(serializedCard, Encoding.UTF8, "application/json");
+            string serializedCard = JsonSerializer.Serialize(newCard);
+            StringContent content = new StringContent(serializedCard, Encoding.UTF8, "application/json");
 
-            //var response = await client.PostAsync($"{urlBase}/card", content);
+            var response = await client.PostAsync($"{urlBase}/card", content);
 
-            //string responseContent = await response.Content.ReadAsStringAsync();
+            string responseContent = await response.Content.ReadAsStringAsync();
 
-            //return responseContent;
-
-
-            // testing scrapper only
-            await scrapper.ScrapSentence("魚");
-            return "test";
+            return responseContent;
         }
 
         public async Task<string> DeleteCard(string word)
